@@ -44,7 +44,9 @@ const apiRequest = axios.create({
 
 ```
 
-## Backend user Verification
+## User Verification
+
+We have created this middleware in which Token came from cookie through request, for that we need to provide withCredentials true in axios request. This middleware will check if the user is authenticated or not.
 
 ```
   const token = req.cookies.token;
@@ -56,4 +58,29 @@ const apiRequest = axios.create({
 
     next();
   });
+```
+
+## Displaying a Map with Property Pins
+
+To visualize the locations of properties, you can use a MapContainer component from React-Leaflet. This example shows how to center the map based on the properties' coordinates and display pins for each property.
+
+```
+ <MapContainer
+            center={
+                items.length === 1
+                    ? [items[0].latitude, items[0].longitude]
+                    : [52.4797, -1.90269] // Default center if no items or multiple items
+            }
+            zoom={7}
+            scrollWheelZoom={false}
+            className="map"
+        >
+            <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {items.map((item) => (
+                <Pin item={item} key={item.id} />
+            ))}
+        </MapContainer>
 ```
