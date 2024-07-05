@@ -2,16 +2,17 @@
 
 This project provides comprehensive information about homes for potential buyers. It offers details about the property, including location, price, amenities, and other relevant features to help users make informed decisions when purchasing a home.
 
-## Features ##
+## Features
+
 - Property Details: Access detailed information about each property, including size, price, number of bedrooms and bathrooms, and year built.
 - Location Insights: Get information about the neighborhood, nearby schools, public transportation, and local amenities.
 - Image Gallery: View high-quality images of the property and its surroundings.
 
-## Project setup ##
+## Project setup
 
 - Clone the repository to your local machine.
 
-### Server Setup ###
+### Server Setup
 
 - Install Node.js(version 18) and npm on your machine.
 - Open the terminal and navigate to the server folder.
@@ -20,25 +21,39 @@ This project provides comprehensive information about homes for potential buyers
 
   CLIENT_URL = Your MongoDB connection string.
   JWT_SECRET_KEY = A secret key for generating JSON Web Tokens.
-  PORT = Backend Port 
+  PORT = Backend Port
 
 - Run the command "npm start" to start the server.
 
-### Client Setup ###
+### Client Setup
 
 - Open the terminal and navigate to the client folder.
 - Run the command "npm install" to install the required dependencies.
 - Run the command "npm start" to start the client application.
 
-## Common API Request File ##
+## Common API Request File
+
 To simplify making HTTP requests to the backend, we have created a common API request file using Axios. This file sets up a base URL and includes credentials with every request.
 
-` const apiRequest = axios.create({
+```
+
+const apiRequest = axios.create({
   baseURL: "http://localhost:{BACKEND_PORT}/api",
   withCredentials: true,
-}); `
+});
 
+```
 
+## Backend user Verification
 
+```
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
 
+  jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
+    if (err) return res.status(403).json({ message: "Token is not Valid!" });
+    req.userId = payload.id;
 
+    next();
+  });
+```
