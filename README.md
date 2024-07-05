@@ -84,3 +84,4 @@ To visualize the locations of properties, you can use a MapContainer component f
             ))}
         </MapContainer>
 ```
+![Screenshot 2024-07-05 160705](https://github.com/Creolestudios/realestate-mern/assets/31659415/182d3881-2b9a-46e7-9ca9-74dfa97b95d4)
